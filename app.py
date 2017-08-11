@@ -1,17 +1,22 @@
 import datetime
 import os
 
-import flask
+from flask import Flask
+from flask import render_template
+from flask import request
 import redis
 
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 REDIS_URL = os.environ.get('REDIS_URL', 'redis://localhost')
 
 
 def get_db():
     return redis.StrictRedis.from_url(REDIS_URL)
+
+def store_message(message):
+    get_db().set(datetime.datetime.utcnow(), message.encode('utf-8'))
 
 def get_messages():
     """All messages in reverse chronological order."""
@@ -23,25 +28,23 @@ def get_messages():
 
 @app.route('/')
 def home():
-    return flask.render_template('home.html')
+    return render_template('home.html')
 
 @app.route('/reflected')
 def reflected_xss():
-    return 'Hello, {}.'.format(flask.request.args.get('name', 'friend'))
+    who = request.args.get('name', 'friend')
+    return 'Hello, {}.'.format(who)
 
 @app.route('/stored', methods=['GET', 'POST'])
 def stored_xss():
-    db = get_db()
-    
     # store the new message, if there is one
-    if flask.request.method == 'POST':
-        message = flask.request.form.get('message', '').encode('utf-8')
-        db.set(datetime.datetime.utcnow(), message)
-
-    # give back the list of messages
-    messages = get_messages()
-
-    return flask.render_template('stored.html', messages=messages)
+    if request.method == 'POST':
+        store_message(request.form.get('message'))
+    # either way, give back the list of messages
+    return render_template(
+        'guestbook.html',
+        messages=get_messages()
+    )
 
 @app.route('/nuke')
 def nuke():
