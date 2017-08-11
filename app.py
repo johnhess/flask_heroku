@@ -2,6 +2,7 @@ import datetime
 import os
 
 from flask import Flask
+from flask import make_response
 from flask import render_template
 from flask import request
 import redis
@@ -32,7 +33,9 @@ def home():
 
 @app.route('/uhoh-dj')
 def uhoh():
-    return render_template('uhoh-dj.html')
+    response = make_response(render_template('uhoh-dj.html'))
+    response.set_cookie('csrftoken', 'A' * 64, domain='.herokuapp.com')
+    return response
 
 @app.route('/reflected')
 def reflected_xss():
