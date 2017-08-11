@@ -34,7 +34,7 @@ def home():
 @app.route('/uhoh-dj')
 def uhoh():
     response = make_response(render_template('uhoh-dj.html'))
-    response.set_cookie('csrftoken', 'A' * 64, domain='ssda.herokuapp.com')
+    response.set_cookie('csrftoken', 'A' * 64, domain='.herokuapp.com')
     return response
 
 @app.route('/reflected')
