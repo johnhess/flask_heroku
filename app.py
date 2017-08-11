@@ -30,6 +30,10 @@ def get_messages():
 def home():
     return render_template('home.html')
 
+@app.route('/uhoh-dj')
+def home():
+    return render_template('uhoh-dj.html')
+
 @app.route('/reflected')
 def reflected_xss():
     who = request.args.get('name', 'friend')
