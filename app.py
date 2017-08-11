@@ -31,7 +31,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/uhoh-dj')
-def home():
+def uhoh():
     return render_template('uhoh-dj.html')
 
 @app.route('/reflected')
