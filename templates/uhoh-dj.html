@@ -9,12 +9,6 @@
 			// these HTTP methods do not require CSRF protection
 			return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 		}
-		// $.ajaxSetup({
-		// 	beforeSend: function(xhr, settings) {
-		// 	console.log('setting a chosen token')
-		// 		xhr.setRequestHeader("X-CSRFToken", 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-		// 	}
-		// });
 		$.ajax({
 			method: 'POST',
 			url: 'http://ssda.veryveryvulnerable.com/guestbook/',
