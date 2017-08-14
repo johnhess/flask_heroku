@@ -43,7 +43,7 @@ def uhoh():
 @app.route('/reflected')
 def reflected_xss():
     who = request.args.get('name', 'friend')
-    return 'Hello, {}.'.format(who)
+    return 'Very Consequential Web Application Says "Hello, {}".'.format(who)
 
 @app.route('/stored', methods=['GET', 'POST'])
 def stored_xss():

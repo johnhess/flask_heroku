@@ -9,14 +9,14 @@
 
 <div class="container">
 	<div class='row'>
-		<div class='col-xs-4'>
+		<div class='col-sm-4'>
 			<p>Say something you want other people to see!</p>
 			<form action="/stored" method='POST'>
 				<input type='text' name='message' placeholder="Your message">
 				<input type='submit' value='Post to this page'>
 			</form>
 		</div>
-		<div class='col-xs-8'>
+		<div class='col-sm-8'>
 			<p>Messages already left:</p>
         	</ul>
 			{% for message in messages %}
