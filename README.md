@@ -1,4 +1,4 @@
-XSS Demo App
-============
+XSS/CSRF Demo App
+=================
 
-A toy app where users can craft XSS attacks.
+A toy app where users can craft XSS/CSRF attacks.
